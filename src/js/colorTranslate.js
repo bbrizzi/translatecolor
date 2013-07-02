@@ -14,8 +14,7 @@ function translatePixels(){
     pixelData = canvasContext.getImageData( 0, 0, canvasElement.width, canvasElement.height );
     
     var noSaturate = $('input#loop').is(":checked");
-    
-    console.log( noSaturate );
+
     
     for(var i=0, len=pixelData.data.length; i < len; i++)
         {
@@ -25,7 +24,7 @@ function translatePixels(){
         if( noSaturate ){
             pixelData.data[i] = ( origialContent.data[i] + translationMap[ colorIndex ] ) % 256;
         }else{
-            pixelData.data[i] = Math.max( origialContent.data[i] + translationMap[ colorIndex ], 255 );
+            pixelData.data[i] = Math.min( origialContent.data[i] + translationMap[ colorIndex ], 255 );
         }
         
         }
@@ -34,9 +33,6 @@ function translatePixels(){
     }
     
 function loadImage( imagepath ){
-
-    
-    console.log(imagepath);
 
     if( imagepath === undefined ){
         imagepath = 'img/kitten.jpg';
