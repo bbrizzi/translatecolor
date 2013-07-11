@@ -22,7 +22,8 @@ function translatePixels(){
         colorIndex = i % 4;
         
         if( noSaturate ){
-            pixelData.data[i] = ( origialContent.data[i] + translationMap[ colorIndex ] ) % 256;
+            // Not using modulo for performance and because it's broken in JavaScript
+            pixelData.data[i] = ( origialContent.data[i] + translationMap[ colorIndex ] ) & 255 ;
         }else{
             pixelData.data[i] = Math.min( origialContent.data[i] + translationMap[ colorIndex ], 255 );
         }
